@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-
+import Navbar from './Components/Navbar';
+import Home from './Components/Home';
+import Courses from './Components/Courses';
+import About from './Components/About';
+import Login from './Components/Login';
+import PrivateRoute from './Components/PrivateRoute';
+import Logout from './Components/Logout';
+import CreateAccount from './Components/CreateAccount';
+import UserState from './Context/UserState';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <UserState>
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route exact path='/home' element={<PrivateRoute Component={Home}/>}/>
+          <Route exact path='/courses' element={<PrivateRoute Component={Courses} />} />
+          <Route exact path='/about' element={<About />} />
+          <Route exact path='/login' element={<Login />} />
+          <Route exact path='/createaccount' element={<CreateAccount />} />
+          <Route exact path='/logout' element={<PrivateRoute Component={Logout} />} />
+        </Routes>
+
+      </BrowserRouter>
+    </UserState>
+
     </div>
   );
 }
